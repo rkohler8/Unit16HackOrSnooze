@@ -37,3 +37,21 @@
 .story-user {
   display: block;
 }
+
+.star{
+  /* -webkit-text-stroke: 1px #848484; */
+  font-size: 9pt;
+  /* pointer-events: auto; */
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+/* .unfav:before {
+  content: "&#9734";
+}
+
+.fav:before {
+  content: "\2605";
+} */

@@ -77,8 +77,8 @@ class StoryList {
   }
   async addStory(user, newStory) {
     // const token = user.loginToken;
+    console.log(newStory);
     const response = await axios.post(`${BASE_URL}/stories`, {token: user.loginToken,  story: newStory});
-    console.log(response.data);
     let storyToAdd = new Story(response.data.story);
     return storyToAdd;
   }

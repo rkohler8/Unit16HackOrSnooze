@@ -36,13 +36,19 @@
 <nav>
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
+  </div>
+  <div class="navbar-main-links" style="display: block;">
     <a class="nav-link" href="#" id="nav-add-story">submit</a>
+    <a class="nav-link" href="#" id="nav-fav-stories">favorites</a>
+    <a class="nav-link" href="#" id="nav-my-stories">my stories</a>
   </div>
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
+  <!-- <span>&#9734;</span> -->
+  <!-- <span>\2605</span> -->
 </nav>
 
 <!-- area for stories (all stories, user stories, favorites) -->
@@ -50,8 +56,7 @@
   <form
     action="#"
     id="story-form"
-    class="hidden"
-    method="post">
+    class="hidden">
     <div class="author-input">
       <label for="create-author">author</label>
       <input id="create-author" required placeholder="author name">
@@ -65,14 +70,24 @@
       <input id="create-url" required type="url" required placeholder="story url">
     </div>
     <button type="submit">submit</button>
-
+    <hr>
   </form>
-
+  <span class="star">
+    <i class="fa-star far">
+      
+    </i>
+  </span>
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+  <!-- List of stories favorited by the user -->
+  <ol id="favorited-stories-list" class="hidden stories-list"></ol>
+
+  <!-- List of stories by the user-->
+  <ol id="my-stories-list" class="hidden stories-list"></ol>
 
 </section>
 

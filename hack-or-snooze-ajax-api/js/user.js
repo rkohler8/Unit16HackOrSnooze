@@ -114,3 +114,17 @@ function updateUIOnUserLogin() {
 
   updateNavOnLogin();
 }
+
+/**
+ * Favorites
+ */
+
+async function addFavorite(evt) {
+  console.debug("addFavorite", evt);
+
+}
+
+// $("i").click(addFavorite);
+$("i").click(function(){
+  alert('I got a click');
+});

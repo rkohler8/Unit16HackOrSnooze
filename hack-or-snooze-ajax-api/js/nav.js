@@ -6,15 +6,6 @@
 
 /** Show main list of all stories when click site name */
 
-function navSubmitStory(evt) {
-  console.debug("updateSubmitStory", evt);
-  console.log("hi");
-  $("#story-form").show();
-}
-
-$body.on("click", "#nav-add-story", navSubmitStory);
-
-
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
@@ -44,4 +35,34 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+function navSubmitStory(evt) {
+  console.debug("updateSubmitStory", evt);
+  navAllStories();
+  $storyForm.show();
+}
 
+$body.on("click", "#nav-add-story", navSubmitStory);
+
+function navPostStory(evt) {
+  console.debug("updatePostStory", evt);
+  submitStory();
+  $storyForm.hide();
+}
+
+$(".stories-container").on("submit", navPostStory);
+
+function showFavorites(evt) {
+  console.debug("showFavorites", evt);
+  hidePageComponents();
+  $favStoriesList.show();
+}
+
+$navFavStories.on("click", showFavorites);
+
+function showMyStories(evt) {
+  console.debug("showMyStories", evt);
+  hidePageComponents();
+  $myStoriesList.show();
+}
+
+$navMyStories.on("click", showMyStories);
