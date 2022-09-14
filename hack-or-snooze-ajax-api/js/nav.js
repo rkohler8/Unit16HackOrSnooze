@@ -6,6 +6,15 @@
 
 /** Show main list of all stories when click site name */
 
+function navSubmitStory(evt) {
+  console.debug("updateSubmitStory", evt);
+  console.log("hi");
+  $("#story-form").show();
+}
+
+$body.on("click", "#nav-add-story", navSubmitStory);
+
+
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
@@ -34,3 +43,5 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+

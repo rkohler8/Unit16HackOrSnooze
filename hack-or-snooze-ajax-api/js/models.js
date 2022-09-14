@@ -75,33 +75,14 @@ class StoryList {
   async printSum(sum) {
     console.log(sum);
   }
-  async addStory(/*  user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
-
-    return "hi";
-    // const tokGet = await axios.post("https://hack-or-snooze-v3.herokuapp.com/login", 'russ', 'buzzbuzz');
-    // token = tokGet.data.token;
-    // // const response = await axios.post(`${BASE_URL}/stories`, token,  newStory);
-    // const res = await axios({
-    //   url: `${BASE_URL}/login`,
-    //   method: "POST",
-    //   data: { user: { username: 'russ',
-    //                   password: 'buzzbuzz' } },
-    // });
-    // console.log(res.data);
-    // const response = await axios({
-    //   url: `${BASE_URL}/stories`,
-    //   method: "POST",
-    //   data: { token, newStory },
-    // });
-    // console.log(response);
-    // return response;
-    // const stories = response.data.stories.map(newStory => new Story(newStory));
-    // return new StoryList(stories);
-    // return response;
+  async addStory(user, newStory) {
+    // const token = user.loginToken;
+    const response = await axios.post(`${BASE_URL}/stories`, {token: user.loginToken,  story: newStory});
+    console.log(response.data);
+    let storyToAdd = new Story(response.data.story);
+    return storyToAdd;
   }
 }
-console.log("5467");
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
