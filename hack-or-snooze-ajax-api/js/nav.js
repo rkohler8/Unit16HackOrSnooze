@@ -51,18 +51,20 @@ function navPostStory(evt) {
 
 $(".stories-container").on("submit", navPostStory);
 
-function showFavorites(evt) {
+function navShowFavorites(evt) {
   console.debug("showFavorites", evt);
   hidePageComponents();
+  fillFavoritesPage();
   $favStoriesList.show();
 }
 
-$navFavStories.on("click", showFavorites);
+$navFavStories.on("click", navShowFavorites);
 
-function showMyStories(evt) {
+function navShowMyStories(evt) {
   console.debug("showMyStories", evt);
   hidePageComponents();
+  fillMyStoriesPage()
   $myStoriesList.show();
 }
 
-$navMyStories.on("click", showMyStories);
+$navMyStories.on("click", navShowMyStories);

@@ -72,15 +72,28 @@ class StoryList {
    *
    * Returns the new Story instance
    */
-  async printSum(sum) {
-    console.log(sum);
-  }
-  async addStory(user, newStory) {
-    // const token = user.loginToken;
-    console.log(newStory);
+  async addStory(user, newStory) {    // R
     const response = await axios.post(`${BASE_URL}/stories`, {token: user.loginToken,  story: newStory});
     let storyToAdd = new Story(response.data.story);
+    this.stories.unshift(storyToAdd);
+    user.ownStories.unshift(storyToAdd);
     return storyToAdd;
+  }
+
+  async removeStory(user, storyId) {
+    // await axios.delete(`${BASE_URL}/stories/${storyId}`, {token: user.loginToken});
+    await axios({
+      url: `${BASE_URL}/stories/${storyId}`,
+      method: "DELETE",
+      data: { token: user.loginToken }
+    });
+
+    // filter out the story whose ID we are removing
+    this.stories = this.stories.filter(story => story.storyId !== storyId);
+
+    // do the same thing for the user's list of stories & their favorites
+    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
 }
 
@@ -197,5 +210,56 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  /** Function to add a favorite
+   * 
+   * - story: story to add
+   */
+  async addFavorite(story) {
+    this.favorites.push(story);
+    await this.updateFavorite("add", story)
+  }
+
+  /** Function to remove a favorite
+   * 
+   * - story: story to remove
+   */
+  async removeFavorite(story) {
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+    await this.updateFavorite("remove", story)
+  }
+
+  /**
+   *
+   * - newState: flag for whether to add or remove the favorite
+   * - story: story to add or remove
+   */
+  async updateFavorite(newState, story) {
+    // const method = newState === "add" ? "POST" : "DELETE";
+    const token = this.loginToken;
+    if(newState === "add") {
+      await axios({
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+        method: "POST",
+        data: { token },
+      });
+    }
+    else if(newState === "remove") {
+      await axios({
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+        method: "DELETE",
+        data: { token },
+      });
+    }
+  }
+
+  /**
+   * 
+   * - story: story to check favorite status of 
+   * @returns true if story is already favorited
+   */
+  isFavorite(story) {
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }
