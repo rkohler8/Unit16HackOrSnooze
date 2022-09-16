@@ -32,9 +32,9 @@ function hidePageComponents() {
     $allStoriesList,
     $loginForm,
     $signupForm,
-    $storyForm,
-    $favStoriesList,
-    $myStoriesList,
+    $storyForm,                   // Added to update
+    $favStoriesList,              // Added to update
+    $myStoriesList,               // Added to update
   ];
   components.forEach(c => c.hide());
 }

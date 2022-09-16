@@ -38,19 +38,11 @@
   display: block;
 }
 
-.star{
+.star{    /* Star class for UI favorite star size */
   /* -webkit-text-stroke: 1px #848484; */
   font-size: 9pt;
 }
 
-i:hover {
+i:hover { /* Shows pointer when hovering over a trashcan or favorite star icon */
   cursor: pointer;
 }
-
-/* .unfav:before {
-  content: "&#9734";
-}
-
-.fav:before {
-  content: "\2605";
-} */

@@ -35,23 +35,25 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-function navSubmitStory(evt) {
+function navSubmitStory(evt) {                              // Function for opening submission prompt
   console.debug("updateSubmitStory", evt);
   navAllStories();
   $storyForm.show();
 }
 
-$body.on("click", "#nav-add-story", navSubmitStory);
+$body.on("click", "#nav-add-story", navSubmitStory);        //
 
-function navPostStory(evt) {
+function navPostStory(evt) {                                // Function to post a story
+  evt.preventDefault();
   console.debug("updatePostStory", evt);
   submitStory();
   $storyForm.hide();
+  $storyForm.trigger("reset");
 }
 
 $(".stories-container").on("submit", navPostStory);
 
-function navShowFavorites(evt) {
+function navShowFavorites(evt) {                            // Function to show favorites page
   console.debug("showFavorites", evt);
   hidePageComponents();
   fillFavoritesPage();
@@ -60,7 +62,7 @@ function navShowFavorites(evt) {
 
 $navFavStories.on("click", navShowFavorites);
 
-function navShowMyStories(evt) {
+function navShowMyStories(evt) {                            // Function to show users story page
   console.debug("showMyStories", evt);
   hidePageComponents();
   fillMyStoriesPage()

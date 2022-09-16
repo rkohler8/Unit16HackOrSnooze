@@ -55,18 +55,26 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function submitStory() {    // Adds new story to storyList; R
+/** Function to add a new story to storyList; R
+ * 
+ */
+async function submitStory() {
   const $addedStory = 
     {
       title : $("#create-title").val(),
       author: $("#create-author").val(),
       url   : $("#create-url").val()
     }
-  storyList.addStory(currentUser, $addedStory);
-  // putStoriesOnPage();
+  const story = await storyList.addStory(currentUser, $addedStory);
+
+  const $story = generateStoryMarkup(story);
+  $allStoriesList.prepend($story);
 }
 
-function getStarHTML(story, user) {   // R
+/** Function to show UI favorite status of a post; R
+ * 
+ */
+function getStarHTML(story, user) {   // ; R
   const isFavorite = user.isFavorite(story);
   const starFill = isFavorite ? "fas" : "far";
   return `
@@ -75,6 +83,9 @@ function getStarHTML(story, user) {   // R
       </span>`;
 }
 
+/** Function to fill out the favorites list; R
+ * 
+ */
 function fillFavoritesPage() {   // R
   $favStoriesList.empty();
 
@@ -84,8 +95,10 @@ function fillFavoritesPage() {   // R
   }
 }
 
+/** Function to fill out the user's stories list; R
+ * 
+ */
 function fillMyStoriesPage() {    // R
-  // console.debug("putUserStoriesOnPage");
   $myStoriesList.empty();
   for(let story of currentUser.ownStories) {
     let $story = generateStoryMarkup(story, true);
@@ -93,6 +106,9 @@ function fillMyStoriesPage() {    // R
   }
 }
 
+/** Function to toggle UI favorite status of a post; R
+ * - evt: click event
+ */
 async function toggleStoryFavorite(evt) {   // R
   console.debug("toggleStoryFavorite");
 
@@ -113,8 +129,11 @@ async function toggleStoryFavorite(evt) {   // R
   }
 }
 
-$(".stories-list").on("click", ".star", toggleStoryFavorite);   // R
+$(".stories-list").on("click", ".star", toggleStoryFavorite);   // On click listener for toggleStoryFavorite(evt); R
 
+/** Function to show UI delete button on a post; R
+ * 
+ */
 function getDeleteBtnHTML() {   // R
   return `
       <span class="trash">
@@ -122,6 +141,9 @@ function getDeleteBtnHTML() {   // R
       </span>`;
 }
 
+/** Function to show delete a user's post when trash can is clicked; R
+ * - evt: click event
+ */
 async function deleteStory(evt) {   // R
   console.debug("deleteStory");
 
@@ -135,4 +157,4 @@ async function deleteStory(evt) {   // R
   await fillMyStoriesPage();
 }
 
-$myStoriesList.on("click", ".trash", deleteStory);   // R
+$myStoriesList.on("click", ".trash", deleteStory);   // On click listener for deleteStory(evt); R

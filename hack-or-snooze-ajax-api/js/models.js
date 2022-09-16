@@ -72,7 +72,7 @@ class StoryList {
    *
    * Returns the new Story instance
    */
-  async addStory(user, newStory) {    // R
+  async addStory(user, newStory) {    // Adds story to page
     const response = await axios.post(`${BASE_URL}/stories`, {token: user.loginToken,  story: newStory});
     let storyToAdd = new Story(response.data.story);
     this.stories.unshift(storyToAdd);
@@ -80,8 +80,12 @@ class StoryList {
     return storyToAdd;
   }
 
+  /** Function to delete a story from list and page and Update API
+   * - user - the current instance of User who will post the story
+   * - obj of {title, author, url}
+   *
+   */
   async removeStory(user, storyId) {
-    // await axios.delete(`${BASE_URL}/stories/${storyId}`, {token: user.loginToken});
     await axios({
       url: `${BASE_URL}/stories/${storyId}`,
       method: "DELETE",
@@ -230,13 +234,12 @@ class User {
     await this.updateFavorite("remove", story)
   }
 
-  /**
+  /** Function to add or remove favorite status of a post
    *
    * - newState: flag for whether to add or remove the favorite
    * - story: story to add or remove
    */
   async updateFavorite(newState, story) {
-    // const method = newState === "add" ? "POST" : "DELETE";
     const token = this.loginToken;
     if(newState === "add") {
       await axios({
@@ -254,7 +257,7 @@ class User {
     }
   }
 
-  /**
+  /** Function to determine whether a story is already in a user's favorites
    * 
    * - story: story to check favorite status of 
    * @returns true if story is already favorited
